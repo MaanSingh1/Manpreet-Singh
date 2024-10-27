@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manpreet Singh - AI Engineer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         :root {
-            --gradient-start: #1a1a1a;
-            --gradient-end: #2d2d2d;
+            --bg-gradient: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
             --primary: #3b82f6;
-            --text-primary: #ffffff;
-            --text-secondary: #a3a3a3;
-            --card-bg: #2a2a2a;
+            --primary-hover: #2563eb;
+            --text: #e5e7eb;
+            --text-secondary: #9ca3af;
         }
 
         * {
@@ -22,103 +23,138 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--text);
+            background: var(--bg-gradient);
             min-height: 100vh;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 4rem 2rem;
         }
 
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 3rem 0;
+            padding: 2rem 0 4rem;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 2rem;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             border: 4px solid var(--primary);
-            margin-bottom: 1.5rem;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, #e5e7eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .quote {
             color: var(--text-secondary);
             font-style: italic;
-            margin-bottom: 1.5rem;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
         }
 
-        .icon-link {
-            color: var(--text-primary);
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
+        .social-button {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .icon-link:hover {
-            color: var(--primary);
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+        .social-button:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
 
         /* Sections */
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
         }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
 
         h2 {
             font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
+            margin-bottom: 2rem;
+            display: inline-block;
             position: relative;
-            padding-bottom: 0.5rem;
         }
 
         h2::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -8px;
             left: 0;
-            width: 60px;
+            width: 60%;
             height: 3px;
             background: var(--primary);
             border-radius: 2px;
         }
 
-        .about-content, .project-card {
+        .card {
             background: var(--card-bg);
             padding: 2rem;
             border-radius: 1rem;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
         }
 
         .highlight {
@@ -128,26 +164,31 @@
 
         /* Projects */
         .project-card h3 {
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
             font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
         }
 
         .project-card ul {
             list-style: none;
+            display: grid;
+            gap: 1.5rem;
         }
 
         .project-card li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding-left: 1rem;
             position: relative;
         }
 
         .project-card li::before {
-            content: '→';
+            content: '▹';
             position: absolute;
-            left: 0;
+            left: -5px;
             color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .project-card strong {
@@ -161,27 +202,23 @@
             text-align: center;
         }
 
-        .contact p {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .contact a {
-            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            background: rgba(59, 130, 246, 0.1);
             transition: all 0.3s ease;
         }
 
         .contact a:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: var(--primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
 
         /* Footer */
@@ -189,45 +226,58 @@
             text-align: center;
             padding: 2rem 0;
             color: var(--text-secondary);
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 2rem 1rem;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .quote {
-                font-size: 0.9rem;
+                font-size: 1rem;
+            }
+
+            .project-card ul {
+                grid-template-columns: 1fr;
             }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- Hero Section -->
         <header class="hero">
-            <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
+            <div class="profile-img-container">
+                <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
+            </div>
             <h1>Manpreet Singh</h1>
             <p class="quote">"Il futuro appartiene a coloro che credono nella bellezza dei propri sogni." — Eleanor Roosevelt</p>
             <div class="social-links">
-                <a href="https://github.com/MaanSingh1" class="icon-link">
+                <a href="https://github.com/MaanSingh1" class="social-button">
                     <i data-feather="github"></i>
                 </a>
-                <a href="mailto:mansingh261@yahoo.it" class="icon-link">
+                <a href="mailto:mansingh261@yahoo.it" class="social-button">
                     <i data-feather="mail"></i>
                 </a>
             </div>
         </header>
 
-        <!-- Chi Sono Section -->
         <section class="about">
             <h2>Chi Sono</h2>
-            <div class="about-content">
+            <div class="card">
                 <p>
                     Ciao! Sono <strong>Manpreet Singh</strong>, studente universitario e aspirante 
                     <span class="highlight">AI Engineer</span>. Sono appassionato di Python, 
@@ -237,10 +287,9 @@
             </div>
         </section>
 
-        <!-- Progetti Section -->
         <section class="projects">
             <h2>Progetti</h2>
-            <div class="project-card">
+            <div class="card project-card">
                 <h3>Professore virtuale con Python e OpenAI</h3>
                 <ul>
                     <li>
@@ -263,10 +312,12 @@
             </div>
         </section>
 
-        <!-- Contatti Section -->
         <section class="contact">
             <h2>Contatti</h2>
-            <p>Contattami su <a href="mailto:mansingh261@yahoo.it">mansingh261@yahoo.it</a></p>
+            <a href="mailto:mansingh261@yahoo.it">
+                <i data-feather="mail"></i>
+                Contattami
+            </a>
         </section>
 
         <footer>
@@ -276,6 +327,23 @@
 
     <script>
         feather.replace();
+
+        // Intersection Observer for smooth scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>

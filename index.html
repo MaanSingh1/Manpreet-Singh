@@ -7,21 +7,31 @@
     <title>Manpreet Singh - AI Engineer</title>
 
     <!-- Fonts -->
-    <!-- Using system fonts for a clean look, or you can re-include Poppins/Inter if desired -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* Base Colors */
-            --bg: #fff;
-            --text: #000;
-            --text-secondary: #555;
-            --accent: #000; /* Using black for simplicity */
-            
-            /* Typography */
-            --heading-font: sans-serif;
-            --body-font: sans-serif;
+            --heading-font: 'Poppins', sans-serif;
+            --body-font: 'Inter', sans-serif;
 
-            /* Spacing & Layout */
-            --max-width: 900px;
+            /* Color & Gradients */
+            --primary: #4C5FD5; 
+            --primary-hover: #3746a1; 
+            --accent: #EC5FC0; 
+            --text: #212529;
+            --text-secondary: #5f6368; 
+            --bg: #f9f9fb; 
+            --bg-alt: #ffffff; 
+            --footer-bg: #222;
+
+            /* Gradients */
+            --gradient-hero: linear-gradient(to bottom right, #4C5FD5, #EC5FC0);
+            --gradient-button: linear-gradient(to bottom right, #4C5FD5, #EC5FC0);
+
+            /* Shadows & Effects */
+            --box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            --transition: 0.3s ease;
+            --border-radius: 1rem;
         }
 
         * {
@@ -30,177 +40,302 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: var(--body-font), sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            padding: 2rem;
         }
 
-        header, nav, section, footer {
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-
+        /* Navbar */
         nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 999;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 4rem;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(255,255,255,0.9);
+            box-shadow: var(--box-shadow);
         }
 
         .nav-brand {
             font-family: var(--heading-font);
+            font-size: 1.6rem;
             font-weight: 700;
-            font-size: 1.4rem;
+            color: var(--primary);
             text-decoration: none;
-            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.8;
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
             color: var(--text);
-            font-size: 1rem;
-            transition: color 0.2s ease;
+            position: relative;
+            transition: var(--transition);
         }
 
-        .nav-links a:hover {
-            color: var(--text-secondary);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            transition: var(--transition);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 2rem;
+                background: var(--bg-alt);
+                box-shadow: var(--box-shadow);
+                border-radius: var(--border-radius);
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                transform: translateX(120%);
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
         }
 
         /* Hero Section */
         .hero {
-            margin-bottom: 4rem;
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .hero-top {
-            display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient-hero);
+            color: #fff;
         }
 
-        .hero-top h1 {
-            font-family: var(--heading-font);
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.2;
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 60%);
+            opacity: 0.5;
+            z-index: -1;
         }
 
         .profile-img-container {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: 2rem;
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-family: var(--heading-font);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .quote {
+            font-style: italic;
             max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #e8e8e8;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            justify-content: center;
+            gap: 1.5rem;
         }
 
         .social-button {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 1.2rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 1px solid #ccc;
-            transition: background-color 0.2s ease;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
         }
 
         .social-button:hover {
-            background-color: #f2f2f2;
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
         }
 
-        /* Sections */
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
         section {
-            margin-bottom: 4rem;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        section.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h2 {
             font-family: var(--heading-font);
-            font-size: 1.8rem;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--text);
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
         }
 
-        p {
-            color: var(--text-secondary);
-            font-size: 1rem;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        p, li {
             line-height: 1.6;
+            color: var(--text-secondary);
         }
 
         .card {
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #eee;
-            margin-bottom: 1.5rem;
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
         }
 
         .highlight {
-            color: var(--text);
+            color: var(--primary);
             font-weight: 600;
         }
 
+        /* About */
+        .about .card p {
+            font-size: 1.1rem;
+        }
+
         /* Projects */
-        .cards-grid {
+        .projects .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .project-card h3 {
             font-family: var(--heading-font);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
         }
 
         .project-card ul {
             list-style: none;
+            display: grid;
+            gap: 1rem;
             padding-left: 0;
         }
 
         .project-card li {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
         }
 
-        .project-card strong {
-            color: var(--text);
-            font-weight: 600;
+        .project-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+            transform: translateY(2px);
         }
 
         /* Contact */
@@ -208,79 +343,93 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            background: var(--gradient-button);
+            color: white;
+            padding: 0.8rem 1.6rem;
+            border-radius: 2rem;
             text-decoration: none;
-            color: var(--text);
             font-weight: 600;
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
+            transition: var(--transition);
         }
 
         .contact a:hover {
-            background-color: #f2f2f2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76,95,213,0.4);
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 2rem 0;
-            color: var(--text-secondary);
+            background: var(--footer-bg);
+            color: #f1f1f1;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.8s;
+        }
+
+        footer.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer p {
+            margin-bottom: 1rem;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 1rem;
         }
 
         .footer-links a {
+            color: #ccc;
             text-decoration: none;
-            color: var(--text-secondary);
             font-size: 0.9rem;
+            transition: var(--transition);
         }
 
         .footer-links a:hover {
-            color: var(--text);
+            color: var(--accent);
         }
 
-        @media (max-width: 600px) {
-            .hero-top {
-                flex-direction: column;
-                align-items: flex-start;
+        /* Responsive text adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .hero-top h1 {
-                font-size: 2.4rem;
-            }
-
-            .profile-img-container {
-                width: 80px;
-                height: 80px;
+            .quote {
+                font-size: 1.1rem;
             }
         }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 </head>
 <body>
-    <nav>
+    <nav id="navbar">
         <a href="#" class="nav-brand">Manpreet Singh</a>
         <div class="nav-links">
             <a href="#about">Chi Sono</a>
             <a href="#projects">Progetti</a>
             <a href="#contatti">Contatti</a>
         </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-top">
-            <h1>Hi, I'm Manpreet Singh</h1>
-            <div class="profile-img-container">
-                <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
-            </div>
+        <div class="profile-img-container">
+            <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
         </div>
-        <p>Sono un aspirante <strong>AI Engineer</strong> da Bergamo, appassionato di Python, intelligenza artificiale e come la tecnologia possa rivoluzionare il futuro. Nel tempo libero? Domo le tigri! 🐯</p>
+        <h1>Manpreet Singh</h1>
+        <p class="quote">"Il futuro appartiene a coloro che credono nella bellezza dei propri sogni." — Eleanor Roosevelt</p>
         <div class="social-links">
             <a href="mailto:mansingh261@yahoo.it" class="social-button">
                 <i data-feather="mail"></i>
@@ -288,47 +437,62 @@
         </div>
     </header>
 
-    <section id="about" class="about">
-        <h2>Chi Sono</h2>
-        <div class="card">
-            <p>
-                Ciao! Sono <strong>Manpreet Singh</strong>, studente universitario. Studio ingegneria biomedica e sono appassionato di <span class="highlight">AI</span>, Python e tecnologie emergenti.
-                Il mio obiettivo è quello di crescere continuamente e trasformarmi nella versione migliore di me stesso, sia professionalmente che personalmente.
-            </p>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <h2>Progetti</h2>
-        <div class="cards-grid">
-            <div class="card project-card">
-                <h3>Professore virtuale con Python e OpenAI</h3>
-                <ul>
-                    <li><strong>LangChain:</strong> Logica delle risposte</li>
-                    <li><strong>OpenAI GPT-3.5:</strong> Il cervello del progetto</li>
-                    <li><strong>Flask & Python:</strong> Backend</li>
-                    <li><strong>HTML/CSS/JS:</strong> Frontend semplice e pulito</li>
-                </ul>
+    <div class="container">
+        <section id="about" class="about">
+            <h2>Chi Sono</h2>
+            <div class="card">
+                <p>
+                    Ciao! Sono <strong>Manpreet Singh</strong>📍Bergamo, studente universitario e aspirante 
+                    <span class="highlight">AI Engineer</span>. Sono appassionato di Python, 
+                    intelligenza artificiale e di come la tecnologia possa rivoluzionare il nostro futuro. 
+                    Nel tempo libero? Beh, mi piace domare le tigri! 🐯
+                </p>
             </div>
-            <div class="card project-card">
-                <h3>Full Stack App - Medcare Italia</h3>
-                <ul>
-                    <li><strong>HTML5</strong>, <strong>CSS3</strong>, <strong>JS</strong></li>
-                    <li><strong>Bootstrap 5.3.0</strong></li>
-                    <li><strong>Bootstrap Icons 1.11.1</strong></li>
-                    <li><strong>Custom CSS:</strong> Personalizzazione UI</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contatti" class="contact">
-        <h2>Contatti</h2>
-        <a href="mailto:mansingh261@yahoo.it">
-            <i data-feather="mail"></i>
-            Contattami
-        </a>
-    </section>
+        <section id="projects" class="projects">
+            <h2>Progetti</h2>
+            <div class="cards-grid">
+                <div class="card project-card">
+                    <h3>Professore virtuale con Python e OpenAI</h3>
+                    <ul>
+                        <li>
+                            <strong>LangChain</strong> Gestione della logica delle risposte.
+                        </li>
+                        <li>
+                            <strong>API - OpenAI GPT-3.5</strong> Il cervello del progetto.
+                        </li>
+                        <li>
+                            <strong>Flask e Python</strong> Backend per il progetto.
+                        </li>
+                        <li>
+                            <strong>HTML/CSS/JavaScript</strong> Un frontend "educato"!
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card project-card">
+                    <h3>Full Stack App - Medcare Italia</h3>
+                    <ul>
+                        <li><strong>HTML5</strong></li>
+                        <li><strong>CSS3</strong></li>
+                        <li><strong>JavaScript (Vanilla)</strong></li>
+                        <li><strong>Bootstrap 5.3.0</strong></li>
+                        <li><strong>Bootstrap Icons 1.11.1</strong></li>
+                        <li><strong>Custom CSS (styles.css)</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contatti" class="contact">
+            <h2>Contatti</h2>
+            <a href="mailto:mansingh261@yahoo.it">
+                <i data-feather="mail"></i>
+                Contattami
+            </a>
+        </section>
+    </div>
 
     <footer>
         <div class="footer-links">
@@ -342,13 +506,34 @@
     <script>
         feather.replace();
 
-        const navbar = document.querySelector('nav');
+        // Intersection Observer for reveal animations
+        const sections = document.querySelectorAll('section, footer');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(s => observer.observe(s));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if(window.scrollY > 10) {
-                navbar.style.opacity = '0.95';
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.opacity = '1';
+                navbar.classList.remove('scrolled');
             }
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('open');
         });
     </script>
 </body>

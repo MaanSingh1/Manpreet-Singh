@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manpreet Singh - AI Engineer</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
         :root {
-            --bg-color: #ffffff;
-            --card-bg: #f8f9fa;
-            --primary: #007bff;
-            --primary-hover: #0056b3;
+            --heading-font: 'Poppins', sans-serif;
+            --body-font: 'Inter', sans-serif;
+
+            /* Color Palette */
+            --primary: #3A86FF;
+            --primary-hover: #255ecc;
+            --accent: #8338EC;
             --text: #212529;
             --text-secondary: #495057;
-            --box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 12px;
+            --bg-color: #ffffff;
+            --bg-alt: #f8f9fa;
+
+            /* Glass & Effects */
+            --glass-bg: rgba(255, 255, 255, 0.5);
+            --glass-blur: blur(10px);
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            --border-radius: 1rem;
         }
 
         * {
@@ -23,16 +33,107 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--body-font), sans-serif;
             line-height: 1.6;
             color: var(--text);
             background-color: var(--bg-color);
             min-height: 100vh;
         }
 
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            backdrop-filter: blur(15px);
+            background-color: rgba(255,255,255,0.8);
+            box-shadow: var(--box-shadow);
+        }
+
+        .nav-brand {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile nav (Hamburger) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: var(--bg-color);
+                box-shadow: var(--box-shadow);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
@@ -40,7 +141,22 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 2rem 0 4rem;
+            padding: 5rem 2rem;
+            position: relative;
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, rgba(58,134,255,0.3), rgba(131,56,236,0.3)),
+                        url('hero-bg.jpg') center/cover no-repeat;
+            z-index: -1;
         }
 
         .profile-img-container {
@@ -64,10 +180,10 @@
         }
 
         .hero h1 {
+            font-family: var(--heading-font);
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: var(--primary);
         }
 
         .quote {
@@ -75,7 +191,8 @@
             font-style: italic;
             max-width: 600px;
             margin: 0 auto 2rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            line-height: 1.5;
         }
 
         .social-links {
@@ -91,7 +208,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--card-bg);
+            background: var(--bg-alt);
             border: 1px solid #dee2e6;
             color: var(--text);
             text-decoration: none;
@@ -103,7 +220,7 @@
             transform: translateY(-3px);
             background: var(--primary);
             color: #ffffff;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(58,134,255,0.4);
         }
 
         /* Sections */
@@ -121,16 +238,18 @@
             }
         }
 
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.4s; }
-        section:nth-child(4) { animation-delay: 0.6s; }
+        section:nth-of-type(1) { animation-delay: 0.2s; }
+        section:nth-of-type(2) { animation-delay: 0.4s; }
+        section:nth-of-type(3) { animation-delay: 0.6s; }
 
         h2 {
+            font-family: var(--heading-font);
             font-size: 2rem;
             margin-bottom: 2rem;
             display: inline-block;
             position: relative;
             color: var(--text);
+            font-weight: 700;
         }
 
         h2::after {
@@ -144,10 +263,14 @@
             border-radius: 2px;
         }
 
+        p, li {
+            line-height: 1.6;
+        }
+
         .card {
-            background: var(--card-bg);
+            background: var(--bg-alt);
             padding: 2rem;
-            border-radius: 1rem;
+            border-radius: var(--border-radius);
             border: 1px solid #dee2e6;
             box-shadow: var(--box-shadow);
             transition: transform 0.3s ease;
@@ -162,8 +285,25 @@
             font-weight: 600;
         }
 
+        .about .card p {
+            font-size: 1.1rem;
+        }
+
         /* Projects */
+        .projects .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .projects .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .project-card h3 {
+            font-family: var(--heading-font);
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--primary);
@@ -172,22 +312,22 @@
         .project-card ul {
             list-style: none;
             display: grid;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .project-card li {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            padding-left: 1rem;
             position: relative;
+            padding-left: 1.5rem;
         }
 
         .project-card li::before {
             content: '▹';
             position: absolute;
-            left: -5px;
-            color: var(--primary);
+            left: 0;
+            color: var(--accent);
             font-size: 1.2rem;
         }
 
@@ -195,6 +335,7 @@
             color: var(--primary);
             display: block;
             margin-bottom: 0.25rem;
+            font-weight: 600;
         }
 
         /* Contact */
@@ -206,7 +347,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
@@ -216,24 +357,47 @@
         }
 
         .contact a:hover {
-            background: var(--primary-hover);
+            background: linear-gradient(135deg, var(--primary-hover), var(--accent));
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(58,134,255,0.4);
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 2rem 0;
-            color: var(--text-secondary);
+            background: #222;
+            color: #f1f1f1;
             opacity: 0;
             animation: fadeIn 0.6s ease 0.8s forwards;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
         }
 
         @keyframes fadeIn {
             to {
                 opacity: 1;
             }
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        footer .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--primary);
         }
 
         /* Responsive Design */
@@ -247,37 +411,46 @@
             }
 
             .quote {
-                font-size: 1rem;
-            }
-
-            .project-card ul {
-                grid-template-columns: 1fr;
+                font-size: 1.1rem;
             }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="hero">
-            <div class="profile-img-container">
-                <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
-            </div>
-            <h1>Manpreet Singh</h1>
-            <p class="quote">"Il futuro appartiene a coloro che credono nella bellezza dei propri sogni." — Eleanor Roosevelt</p>
-            <div class="social-links">
-                </a>
-                <a href="mailto:mansingh261@yahoo.it" class="social-button">
-                    <i data-feather="mail"></i>
-                </a>
-            </div>
-        </header>
+    <nav id="navbar">
+        <a href="#" class="nav-brand">Manpreet Singh</a>
+        <div class="nav-links">
+            <a href="#about">Chi Sono</a>
+            <a href="#projects">Progetti</a>
+            <a href="#contatti">Contatti</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-        <section class="about">
+    <header class="hero">
+        <div class="profile-img-container">
+            <img src="batman_avatar.jpeg" alt="Profile" class="profile-img">
+        </div>
+        <h1>Manpreet Singh</h1>
+        <p class="quote">"Il futuro appartiene a coloro che credono nella bellezza dei propri sogni." — Eleanor Roosevelt</p>
+        <div class="social-links">
+            <a href="mailto:mansingh261@yahoo.it" class="social-button">
+                <i data-feather="mail"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="about" class="about">
             <h2>Chi Sono</h2>
             <div class="card">
                 <p>
-                    Ciao! Sono <strong>Manpreet Singh</strong>📍Bergamo., studente universitario e aspirante 
+                    Ciao! Sono <strong>Manpreet Singh</strong>📍Bergamo, studente universitario e aspirante 
                     <span class="highlight">AI Engineer</span>. Sono appassionato di Python, 
                     intelligenza artificiale e di come la tecnologia possa rivoluzionare il nostro futuro. 
                     Nel tempo libero? Beh, mi piace domare le tigri! 🐯
@@ -285,75 +458,74 @@
             </div>
         </section>
 
-        <section class="projects">
+        <section id="projects" class="projects">
             <h2>Progetti</h2>
-            <div class="card project-card">
-                <h3>Professore virtuale con Python e OpenAI</h3>
-                <ul>
-                    <li>
-                        <strong>LangChain</strong> 
-                        Gestione della logica delle risposte.
-                    </li>
-                    <li>
-                        <strong>API - OpenAI GPT-3.5</strong> 
-                        Il cervello del progetto.
-                    </li>
-                    <li>
-                        <strong>Flask e Python</strong> 
-                        Backend per il progetto.
-                    </li>
-                    <li>
-                        <strong>HTML/CSS/JavaScript</strong> 
-                        Un frontend "educato"!
-                    </li>
-                </ul>
-            </div>
+            <div class="cards-grid">
+                <div class="card project-card">
+                    <h3>Professore virtuale con Python e OpenAI</h3>
+                    <ul>
+                        <li>
+                            <strong>LangChain</strong> 
+                            Gestione della logica delle risposte.
+                        </li>
+                        <li>
+                            <strong>API - OpenAI GPT-3.5</strong> 
+                            Il cervello del progetto.
+                        </li>
+                        <li>
+                            <strong>Flask e Python</strong> 
+                            Backend per il progetto.
+                        </li>
+                        <li>
+                            <strong>HTML/CSS/JavaScript</strong> 
+                            Un frontend "educato"!
+                        </li>
+                    </ul>
+                </div>
 
-            <!-- New Project Card -->
-            <div class="card project-card" style="margin-top: 2rem;">
-                <h3>Full Stack App - Medcare Italia</h3>
-                <ul>
-                    <li>
-                        <strong>HTML5</strong>
-                
-                    </li>
-                    <li>
-                        <strong>CSS3</strong>
-                        
-                    </li>
-                    <li>
-                        <strong>JavaScript (Vanilla)</strong>
-                        
-                    </li>
-                    <li>
-                        <strong>Bootstrap 5.3.0</strong>
-                        
-                    </li>
-                    <li>
-                        <strong>Bootstrap Icons 1.11.1</strong>
-                        
-                    </li>
-                    <li>
-                        <strong>Custom CSS (styles.css)</strong>
-                        
-                    </li>
-                    
-                </ul>
+                <div class="card project-card">
+                    <h3>Full Stack App - Medcare Italia</h3>
+                    <ul>
+                        <li>
+                            <strong>HTML5</strong>
+                        </li>
+                        <li>
+                            <strong>CSS3</strong>
+                        </li>
+                        <li>
+                            <strong>JavaScript (Vanilla)</strong>
+                        </li>
+                        <li>
+                            <strong>Bootstrap 5.3.0</strong>
+                        </li>
+                        <li>
+                            <strong>Bootstrap Icons 1.11.1</strong>
+                        </li>
+                        <li>
+                            <strong>Custom CSS (styles.css)</strong>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <section class="contact">
+        <section id="contatti" class="contact">
             <h2>Contatti</h2>
             <a href="mailto:mansingh261@yahoo.it">
                 <i data-feather="mail"></i>
                 Contattami
             </a>
         </section>
-
-        <footer>
-            <p>© 2024 Manpreet Singh</p>
-        </footer>
     </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#about">Chi Sono</a>
+            <a href="#projects">Progetti</a>
+            <a href="#contatti">Contatti</a>
+        </div>
+        <p>© 2024 Manpreet Singh</p>
+    </footer>
 
     <script>
         feather.replace();
@@ -370,9 +542,27 @@
             threshold: 0.1
         });
 
-        // Observe all sections
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('open');
         });
     </script>
 </body>
